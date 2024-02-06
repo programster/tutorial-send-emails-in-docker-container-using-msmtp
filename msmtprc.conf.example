@@ -1,0 +1,44 @@
+# Set the default values for all accounts
+#
+defaults
+auth        on
+tls         on
+logfile     /var/log/msmtp.log
+
+
+# This set of configuration options forces the from address to be from one specified.
+# Settting from header to "on" instead of default "auto" so that msmtp
+# always sets the from header to what we have specified, overriding any headers that may already 
+# have been set.
+# allow_from_overrode off ensures if sendmail called with -f, that is ignored https://bit.ly/49FSLVp
+# However. This option is only available in newer versions of msmtp, so it is not available in the 
+# version that comes with Debian 11.
+# These settings need to be located here, rather than within an account setting for this forcing of 
+# the from email address to work.
+#
+set_from_header         on
+allow_from_override     off
+from                    someemail@mydomain.com
+
+
+# Use of this requires installling ca-certificates package
+#
+tls_trust_file  /etc/ssl/certs/ca-certificates.crt
+
+
+# Specify details specific to our mail in a box server account
+#
+account         mail-in-a-box
+host            smtp.mydomain.com
+port            587
+tls_starttls    on
+
+# specify SMTP authentication details for this account
+#
+user            noreply@mydomain.com
+password        yourPasswordGoHere
+
+
+# Set the default account (our only account)
+#
+account default: mail-in-a-box
