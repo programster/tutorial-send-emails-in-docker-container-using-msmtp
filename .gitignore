@@ -1,3 +1,6 @@
 # Ignore all configuration files.
 .env
 msmtprc.conf
+
+# Ignore phpstorm IDE files
+.idea
